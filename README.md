@@ -1,6 +1,10 @@
-# Champion03
+# Champion V03
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.2.
+
+## API Token
+A Development API Key is needed to make the app worked
+Go to https://developer.riotgames.com/ & then replace the apiKey value in the environment.ts file
 
 ## Development server
 
