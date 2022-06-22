@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { ChampionDataService } from '../services/champion-data.service';
 import { ChampionsInformation, ChampionsIdsInformation, Champion } from './champion';
@@ -10,27 +11,32 @@ import { ChampionsInformation, ChampionsIdsInformation, Champion } from './champ
 })
 export class ChampionListComponent implements OnInit {
   champions:any;
+  championSubscription: Subscription = new Subscription;
+  championServiceSubscription: Subscription = new Subscription;
+  dragonListArray: Champion[] = [];
   constructor(private championService: ChampionDataService) { }
 
   ngOnInit(): void {
     //call api to get Free Champions ids
-    this.championService.getChampionList().subscribe((response: ChampionsIdsInformation)=>{        
+    this.championSubscription = this.championService.getChampionList().subscribe((response: ChampionsIdsInformation)=>{        
         let championIdList = response.freeChampionIds;
-        let dragonList: any;
-
-        // call api to get champions Information
-        this.championService.getChampion().subscribe((data: ChampionsInformation)=>{          
-          dragonList = data.data;
-
-          //transform dragonList to array
-          const dragonListArray = Object.values(dragonList);
-          this.champions = dragonListArray.filter((champion: any)=>{
-            return championIdList.some((id:number)=>{
+        // call api to get champion's Information
+        this.championServiceSubscription = this.championService.getChampion().subscribe((data: ChampionsInformation)=>{
+          //transform data to array
+          this.dragonListArray = Object.values(data.data);
+          this.champions = this.dragonListArray.filter((champion: Champion)=>{
+            // return champions by ids
+            return championIdList.some((id:Number)=>{
               return Number(champion.key) == id;
             })            
           })
         });
     });
+  }
+
+  ngOnDestroy():void {
+    this.championSubscription.unsubscribe();
+    this.championServiceSubscription.unsubscribe();
   }
 
 }
