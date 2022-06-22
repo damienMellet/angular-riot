@@ -6,7 +6,22 @@
             <mat-card-subtitle>{{ champion.title }}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-            {{ champion.blurb }}
+            <div class="desc">{{ champion.blurb }}</div>
+            <div class="stats">
+                <h4>Infos :</h4>
+                <div class="stat attack">
+                    <mat-icon aria-hidden="false" aria-label="games attack">flash_on</mat-icon> <span></span>{{ champion.info.attack }}
+                </div>
+                <div class="stat defense">
+                    <mat-icon aria-hidden="false" aria-label="games security">security</mat-icon> <span></span>{{ champion.info.defense }}
+                </div>
+                <div class="stat difficulty">
+                    <mat-icon aria-hidden="false" aria-label="games warning">warning</mat-icon> <span></span>{{ champion.info.difficulty }}
+                </div>
+                <div class="stat magic">
+                    <mat-icon aria-hidden="false" aria-label="games moon">brightness_3</mat-icon> <span></span>{{ champion.info.magic }}
+                </div>
+            </div>
         </mat-card-content>
         <mat-divider inset></mat-divider>
         <mat-card-footer>
