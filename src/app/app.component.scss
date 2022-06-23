@@ -1,13 +1,8 @@
-body {
-    background-color: #666;
+:host {
+    background-color: #fff;
 }
-
 main {
     max-width: 900px;
     margin: 0 auto;
     padding: 0 1rem;
-}
-
-footer {
-    font-size: .5rem;
 }

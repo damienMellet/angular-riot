@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { catchError, EMPTY, Subscription, throwError } from 'rxjs';
 
 import { ChampionDataService } from '../services/champion-data.service';
 import { ChampionsInformation, ChampionsIdsInformation, Champion } from './champion';
@@ -18,7 +18,11 @@ export class ChampionListComponent implements OnInit {
 
   ngOnInit(): void {
     //call api to get Free Champions ids
-    this.championSubscription = this.championService.getChampionList().subscribe((response: ChampionsIdsInformation)=>{        
+    this.championSubscription = this.championService.getChampionList().pipe(
+      catchError(() => {
+        return EMPTY;
+      })
+    ).subscribe((response: ChampionsIdsInformation)=>{        
         let championIdList = response.freeChampionIds;
         // call api to get champion's Information
         this.championServiceSubscription = this.championService.getChampion().subscribe((data: ChampionsInformation)=>{

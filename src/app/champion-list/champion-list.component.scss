@@ -54,3 +54,13 @@
         }
     }
 }
+
+.container.no-data {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    p {
+        font-size: .75rem;
+    }
+}

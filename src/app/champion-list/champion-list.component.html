@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="champions?.length">
     <mat-card class="champion-card" *ngFor="let champion of champions">
         <mat-card-header> 
             <img mat-card-avatar src="https://ddragon.leagueoflegends.com/cdn/{{champion.version}}/img/champion/{{champion.image.full}}"/>                       
@@ -30,4 +30,7 @@
             </mat-chip-list>            
         </mat-card-footer>
     </mat-card>   
+</div>
+<div class="container no-data" *ngIf="!champions?.length">
+    <p>Aucunes données disponibles.</p>
 </div>
